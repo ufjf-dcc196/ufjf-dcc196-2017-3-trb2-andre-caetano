@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TRB1</string>
+    <string name="cadastro_de_livro">Cadastro de Livro</string>
+    <string name="cadastro_de_participante">Cadastro de Participante</string>
+    <string name="cadastro_de_reserva">Cadastro de Reserva</string>
+    <string name="lista_de_participantes">Lista de Participantes</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="e_mail">E-mail</string>
+    <string name="nome">Nome</string>
+    <string name="ano_de_publica_o">Ano de Publicação</string>
+    <string name="editora">Editora</string>
+    <string name="t_tulo">Título</string>
+</resources>
