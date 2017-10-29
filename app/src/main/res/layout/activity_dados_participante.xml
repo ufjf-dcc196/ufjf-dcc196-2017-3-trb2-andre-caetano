@@ -7,6 +7,52 @@
     tools:context="com.example.andre.trb1.DadosParticipante">
 
     <TextView
+        android:id="@+id/text_entrada_participante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toRightOf="@+id/text_horario_entrada"
+        app:layout_constraintTop_toBottomOf="@+id/text_email_participante" />
+
+    <TextView
+        android:id="@+id/text_saida_participante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toRightOf="@+id/text_horario_saida"
+        app:layout_constraintTop_toBottomOf="@+id/text_entrada_participante" />
+
+    <TextView
+        android:id="@+id/text_horario_saida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/hor_rio_de_sa_da"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_horario_entrada" />
+
+    <TextView
+        android:id="@+id/text_horario_entrada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/hor_rio_de_entrada"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_email" />
+
+    <TextView
         android:id="@+id/text_email_participante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_nome_participante" />
 
     <TextView
-        android:id="@+id/text_titulo_participante"
+        android:id="@+id/text_participante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -40,7 +86,7 @@
         android:text="@string/nome"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_titulo_participante" />
+        app:layout_constraintTop_toBottomOf="@+id/text_participante" />
 
     <TextView
         android:id="@+id/text_nome_participante"
@@ -51,7 +97,7 @@
         android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintLeft_toRightOf="@+id/text_nome"
-        app:layout_constraintTop_toBottomOf="@+id/text_titulo_participante" />
+        app:layout_constraintTop_toBottomOf="@+id/text_participante" />
 
     <TextView
         android:id="@+id/text_email"

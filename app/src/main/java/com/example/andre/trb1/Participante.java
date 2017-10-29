@@ -2,13 +2,14 @@ package com.example.andre.trb1;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.ArrayList;
+import java.util.Date;
 
 class Participante implements Parcelable {
     private String nome;
     private String email;
-    private ArrayList<Livro> livros = new ArrayList<>();
+    private Date horaEntrada = new Date();
+    private Date horaSaida = new Date();
+
 
     Participante(Parcel in) {
         nome = in.readString();
@@ -21,14 +22,14 @@ class Participante implements Parcelable {
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(nome);
         dest.writeString(email);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Participante> CREATOR = new Creator<Participante>() {
@@ -60,7 +61,19 @@ class Participante implements Parcelable {
         this.email = email;
     }
 
-    void addLivro(Livro livro) {
-        this.livros.add(livro);
+    public Date getHoraEntrada() {
+        return horaEntrada;
+    }
+
+    public void setHoraEntrada(Date horaEntrada) {
+        this.horaEntrada = horaEntrada;
+    }
+
+    public Date getHoraSaida() {
+        return horaSaida;
+    }
+
+    public void setHoraSaida(Date horaSaida) {
+        this.horaSaida = horaSaida;
     }
 }

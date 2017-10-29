@@ -47,7 +47,6 @@ public class CadastroReserva extends AppCompatActivity {
     private void cadastrarReserva(Spinner listaParticipantes, Spinner listaLivros) {
         Participante participante = (Participante) listaParticipantes.getSelectedItem();
         Livro livro = (Livro) listaLivros.getSelectedItem();
-        participante.addLivro(livro);
         livro.addParticipante(participante);
 
         Toast.makeText(getBaseContext(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();

@@ -21,6 +21,7 @@
         <activity android:name=".CadastroReserva" />
         <activity android:name=".DadosParticipante" />
         <activity android:name=".ListaLivros" />
+        <activity android:name=".DadosLivro"></activity>
     </application>
 
 </manifest>

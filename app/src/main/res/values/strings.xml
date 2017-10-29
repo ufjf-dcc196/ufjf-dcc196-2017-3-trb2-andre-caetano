@@ -13,4 +13,8 @@
     <string name="participante">Participante</string>
     <string name="listar_livros">Listar Livros</string>
     <string name="lista_de_livros">Lista de Livros</string>
+    <string name="lista_de_reservas">Lista de Reservas</string>
+    <string name="livro">Livro</string>
+    <string name="hor_rio_de_entrada">Horário de entrada</string>
+    <string name="hor_rio_de_sa_da">Horário de saída</string>
 </resources>

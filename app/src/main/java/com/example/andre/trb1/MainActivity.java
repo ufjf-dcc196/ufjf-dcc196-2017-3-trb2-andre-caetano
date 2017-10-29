@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Participante> participantes = new ArrayList<>();
@@ -56,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         listaParticipantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Participante participante = (Participante) listaParticipantes.getItemAtPosition(position);
                 Intent intent = new Intent(getBaseContext(), DadosParticipante.class);
-                Participante participante = (Participante) listaParticipantes.getSelectedItem();
                 intent.putExtra("PARTICIPANTE", participante);
                 startActivity(intent);
             }
@@ -65,6 +66,19 @@ public class MainActivity extends AppCompatActivity {
         listaParticipantes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Participante participante = (Participante) listaParticipantes.getItemAtPosition(position);
+                int index = participantes.indexOf(participante);
+                if( participantes.get(index).getHoraEntrada() == null
+                        && participantes.get(index).getHoraSaida() == null) {
+                    participantes.get(index).setHoraEntrada(Calendar.getInstance().getTime());
+                }
+                else if(participantes.get(index).getHoraSaida() == null){
+                    participantes.get(index).setHoraSaida(Calendar.getInstance().getTime());
+                }
+                else{
+                    participantes.get(index).setHoraEntrada(null);
+                    participantes.get(index).setHoraSaida(null);
+                }
                 return false;
             }
         });
@@ -75,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), activity);
+                if(requestCode == 3){
+                    intent.putParcelableArrayListExtra("PARTICIPANTES", participantes);
+                    intent.putParcelableArrayListExtra("LIVROS", livros);
+                }
                 startActivityForResult(intent, requestCode);
             }
         });

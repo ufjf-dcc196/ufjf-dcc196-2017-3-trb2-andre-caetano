@@ -15,6 +15,7 @@ class Livro implements Parcelable{
         titulo = in.readString();
         editora = in.readString();
         anoPublicacao = in.readInt();
+        participantes = in.createTypedArrayList(Participante.CREATOR);
     }
 
     Livro(String titulo, String editora, Integer anoPublicacao){
@@ -28,6 +29,7 @@ class Livro implements Parcelable{
         dest.writeString(titulo);
         dest.writeString(editora);
         dest.writeInt(anoPublicacao);
+        dest.writeTypedList(participantes);
     }
 
     @Override
@@ -56,19 +58,27 @@ class Livro implements Parcelable{
         this.titulo = titulo;
     }
 
+    String getEditora() {
+        return editora;
+    }
+
     void setEditora(String editora) {
         this.editora = editora;
+    }
+
+    Integer getAnoPublicacao() {
+        return anoPublicacao;
     }
 
     void setAnoPublicacao(Integer anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
     }
 
-    public ArrayList<Participante> getParticipantes() {
+    ArrayList<Participante> getParticipantes() {
         return participantes;
     }
 
     void addParticipante(Participante participante) {
-        this.participantes.add(participante);
+        participantes.add(participante);
     }
 }
