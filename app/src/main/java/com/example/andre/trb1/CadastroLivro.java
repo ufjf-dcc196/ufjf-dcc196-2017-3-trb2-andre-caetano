@@ -16,7 +16,6 @@ public class CadastroLivro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_livro);
 
-        // lendo botão e tratando click
         Button btnCadastrar = (Button) findViewById(R.id.btn_cadastrar_livro);
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,7 +25,6 @@ public class CadastroLivro extends AppCompatActivity {
         });
     }
 
-    // função para cadastrar livro
     private void cadastrarLivro() {
         Livro livro = new Livro(Parcel.obtain());
 
@@ -40,10 +38,8 @@ public class CadastroLivro extends AppCompatActivity {
             livro.setAnoPublicacao(Integer.parseInt(etAnoPublicacao.getText().toString()));
         }
 
-        // mensagem para confirmar cadastro
         Toast.makeText(getBaseContext(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
-        // enviando novo livro para a activity principal
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         intent.putExtra("LIVRO", livro);
         setResult(RESULT_OK, intent);

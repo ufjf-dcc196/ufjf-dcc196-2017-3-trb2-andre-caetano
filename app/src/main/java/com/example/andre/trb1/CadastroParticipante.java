@@ -16,7 +16,6 @@ public class CadastroParticipante extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_participante);
 
-        // lendo botão e tratando click
         Button btnCadastrar = (Button) findViewById(R.id.btn_cadastrar_participante);
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,7 +25,6 @@ public class CadastroParticipante extends AppCompatActivity {
         });
     }
 
-    // função para cadastrar participante
     private void cadastrarParticipante(){
         Participante participante = new Participante(Parcel.obtain());
 
@@ -36,10 +34,8 @@ public class CadastroParticipante extends AppCompatActivity {
         participante.setNome(etNome.getText().toString());
         participante.setEmail(etEmail.getText().toString());
 
-        // mensagem para confirmar cadastro
         Toast.makeText(getBaseContext(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
-        // enviando novo participante para a activity principal
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         intent.putExtra("PARTICIPANTE", participante);
         setResult(RESULT_OK, intent);

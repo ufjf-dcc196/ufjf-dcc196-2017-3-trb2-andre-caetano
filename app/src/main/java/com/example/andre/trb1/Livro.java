@@ -3,10 +3,13 @@ package com.example.andre.trb1;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 class Livro implements Parcelable{
     private String titulo;
     private String editora;
     private Integer anoPublicacao;
+    private ArrayList<Participante> participantes = new ArrayList<>();
 
     Livro(Parcel in) {
         titulo = in.readString();
@@ -59,5 +62,13 @@ class Livro implements Parcelable{
 
     void setAnoPublicacao(Integer anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
+    }
+
+    public ArrayList<Participante> getParticipantes() {
+        return participantes;
+    }
+
+    void addParticipante(Participante participante) {
+        this.participantes.add(participante);
     }
 }

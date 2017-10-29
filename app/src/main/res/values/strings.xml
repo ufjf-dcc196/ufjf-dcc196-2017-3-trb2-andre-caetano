@@ -10,4 +10,7 @@
     <string name="ano_de_publica_o">Ano de Publicação</string>
     <string name="editora">Editora</string>
     <string name="t_tulo">Título</string>
+    <string name="participante">Participante</string>
+    <string name="listar_livros">Listar Livros</string>
+    <string name="lista_de_livros">Lista de Livros</string>
 </resources>

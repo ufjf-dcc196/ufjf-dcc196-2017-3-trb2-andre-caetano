@@ -3,8 +3,8 @@ package com.example.andre.trb1;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,58 +14,67 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Participante> participantes = new ArrayList<>();
     private ArrayList<Livro> livros = new ArrayList<>();
-    private ArrayList<Reserva> reservas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // lendo botões
         Button btnCadastroParticipante = (Button) findViewById(R.id.btn_cadastro_participante);
         Button btnCadastroLivro = (Button) findViewById(R.id.btn_cadastro_livro);
         Button btnCadastroReserva = (Button) findViewById(R.id.btn_cadastro_reserva);
+        Button btnListarLivros = (Button) findViewById(R.id.btn_listar_livros);
 
-        // tratando clicks nos botões
-        setOnClick(btnCadastroParticipante, CadastroParticipante.class, 1);
-        setOnClick(btnCadastroLivro, CadastroLivro.class, 2);
-        setOnClick(btnCadastroReserva, CadastroReserva.class, 3);
+        setOnClickForResult(btnCadastroParticipante, CadastroParticipante.class, 1);
+        setOnClickForResult(btnCadastroLivro, CadastroLivro.class, 2);
+        btnCadastroReserva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), CadastroReserva.class);
+                intent.putParcelableArrayListExtra("PARTICIPANTES", participantes);
+                intent.putParcelableArrayListExtra("LIVROS", livros);
+                startActivity(intent);
+            }
+        });
+        btnListarLivros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ListaLivros.class);
+                intent.putParcelableArrayListExtra("LIVROS", livros);
+                startActivity(intent);
+            }
+        });
 
-        // adicionando dados iniciais
         participantes.add(new Participante("André Caetano Vidal", "andrecvidal@hotmail.com"));
         participantes.add(new Participante("Igor Knop", null));
         livros.add(new Livro("O Guia do Mochileiro das Galáxias", "Arqueiro", 2010));
 
-        // criando a lista de participantes
-        ListView listaParticipantes = (ListView) findViewById(R.id.list_participantes);
+        final ListView listaParticipantes = (ListView) findViewById(R.id.list_participantes);
         ArrayAdapter<Participante> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, participantes);
         listaParticipantes.setAdapter(adapter);
 
-        // tratando clicks na lista
-        listaParticipantes.setOnTouchListener(new View.OnTouchListener() {
+        listaParticipantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getBaseContext(), DadosParticipante.class);
+                Participante participante = (Participante) listaParticipantes.getSelectedItem();
+                intent.putExtra("PARTICIPANTE", participante);
+                startActivity(intent);
             }
         });
-        listaParticipantes.setOnLongClickListener(new View.OnLongClickListener() {
+        listaParticipantes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 return false;
             }
         });
     }
 
-    // função para tratar os clicks
-    private void setOnClick(final Button btn, final Class activity, final int requestCode){
+    private void setOnClickForResult(final Button btn, final Class activity, final int requestCode){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), activity);
-                if(requestCode == 3){
-                    intent.putParcelableArrayListExtra("PARTICIPANTES", participantes);
-                    intent.putParcelableArrayListExtra("LIVROS", livros);
-                }
                 startActivityForResult(intent, requestCode);
             }
         });
@@ -82,10 +91,6 @@ public class MainActivity extends AppCompatActivity {
             if(requestCode == 2){
                 Livro novoLivro = data.getParcelableExtra("LIVRO");
                 livros.add(novoLivro);
-            }
-            if(requestCode == 3){
-                Reserva novaReserva = data.getParcelableExtra("RESERVA");
-                reservas.add(novaReserva);
             }
         }
     }
