@@ -2,18 +2,22 @@ package com.example.andre.trb1;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.text.DateFormat;
 import java.util.Date;
 
 class Participante implements Parcelable {
     private String nome;
     private String email;
-    private Date horaEntrada = new Date();
-    private Date horaSaida = new Date();
+    private String horaEntrada;
+    private String horaSaida;
 
 
     Participante(Parcel in) {
         nome = in.readString();
         email = in.readString();
+        horaEntrada = in.readString();
+        horaSaida = in.readString();
     }
 
     Participante(String nome, String email){
@@ -25,6 +29,8 @@ class Participante implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(nome);
         dest.writeString(email);
+        dest.writeString(horaEntrada);
+        dest.writeString(horaSaida);
     }
 
     @Override
@@ -61,19 +67,24 @@ class Participante implements Parcelable {
         this.email = email;
     }
 
-    public Date getHoraEntrada() {
+    String getHoraEntrada() {
         return horaEntrada;
     }
 
-    public void setHoraEntrada(Date horaEntrada) {
-        this.horaEntrada = horaEntrada;
-    }
-
-    public Date getHoraSaida() {
+    String getHoraSaida() {
         return horaSaida;
     }
 
-    public void setHoraSaida(Date horaSaida) {
-        this.horaSaida = horaSaida;
+    void registraHora(Date date){
+        if( horaEntrada == null && horaSaida == null) {
+            this.horaEntrada = DateFormat.getTimeInstance().format(date);
+        }
+        else if(horaSaida == null){
+            this.horaSaida = DateFormat.getTimeInstance().format(date);
+        }
+        else{
+            this.horaEntrada = null;
+            this.horaSaida = null;
+        }
     }
 }

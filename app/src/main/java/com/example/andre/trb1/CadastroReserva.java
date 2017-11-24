@@ -1,5 +1,6 @@
 package com.example.andre.trb1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,14 +12,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class CadastroReserva extends AppCompatActivity {
+    ArrayList<Participante> participantes = new ArrayList<>();
+    ArrayList<Livro> livros = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_reserva);
-
-        ArrayList<Participante> participantes = new ArrayList<>();
-        ArrayList<Livro> livros = new ArrayList<>();
 
         if(getIntent().getParcelableArrayListExtra("PARTICIPANTES") != null) {
             participantes = getIntent().getParcelableArrayListExtra("PARTICIPANTES");
@@ -46,11 +46,13 @@ public class CadastroReserva extends AppCompatActivity {
 
     private void cadastrarReserva(Spinner listaParticipantes, Spinner listaLivros) {
         Participante participante = (Participante) listaParticipantes.getSelectedItem();
-        Livro livro = (Livro) listaLivros.getSelectedItem();
-        livro.addParticipante(participante);
+        ((Livro) listaLivros.getSelectedItem()).addParticipante(participante);
 
         Toast.makeText(getBaseContext(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        intent.putExtra("LIVROS", livros);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

@@ -25,7 +25,7 @@ public class DadosParticipante extends AppCompatActivity {
 
         nome.setText(participante.toString());
         email.setText(participante.getEmail());
-        horarioEntrada.setText(participante.getHoraEntrada().toString());
-        horarioSaida.setText(participante.getHoraSaida().toString());
+        horarioEntrada.setText(participante.getHoraEntrada());
+        horarioSaida.setText(participante.getHoraSaida());
     }
 }

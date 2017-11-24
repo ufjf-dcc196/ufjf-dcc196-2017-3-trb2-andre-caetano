@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Participante> participantes = new ArrayList<>();
@@ -28,15 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         setOnClickForResult(btnCadastroParticipante, CadastroParticipante.class, 1);
         setOnClickForResult(btnCadastroLivro, CadastroLivro.class, 2);
-        btnCadastroReserva.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), CadastroReserva.class);
-                intent.putParcelableArrayListExtra("PARTICIPANTES", participantes);
-                intent.putParcelableArrayListExtra("LIVROS", livros);
-                startActivity(intent);
-            }
-        });
+        setOnClickForResult(btnCadastroReserva, CadastroReserva.class, 3);
         btnListarLivros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,18 +60,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Participante participante = (Participante) listaParticipantes.getItemAtPosition(position);
                 int index = participantes.indexOf(participante);
-                if( participantes.get(index).getHoraEntrada() == null
-                        && participantes.get(index).getHoraSaida() == null) {
-                    participantes.get(index).setHoraEntrada(Calendar.getInstance().getTime());
-                }
-                else if(participantes.get(index).getHoraSaida() == null){
-                    participantes.get(index).setHoraSaida(Calendar.getInstance().getTime());
-                }
-                else{
-                    participantes.get(index).setHoraEntrada(null);
-                    participantes.get(index).setHoraSaida(null);
-                }
-                return false;
+                participantes.get(index).registraHora(new Date());
+                return true;
             }
         });
     }
@@ -109,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
             if(requestCode == 2){
                 Livro novoLivro = data.getParcelableExtra("LIVRO");
                 livros.add(novoLivro);
+            }
+            if(requestCode == 3){
+                livros = data.getParcelableArrayListExtra("LIVROS");
             }
         }
     }
