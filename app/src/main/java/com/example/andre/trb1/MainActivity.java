@@ -8,13 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
+import com.example.andre.trb1.dbhelper.ParticipanteHelper;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Participante> participantes = new ArrayList<>();
-    private ArrayList<Livro> livros = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,26 +24,13 @@ public class MainActivity extends AppCompatActivity {
         Button btnCadastroReserva = (Button) findViewById(R.id.btn_cadastro_reserva);
         Button btnListarLivros = (Button) findViewById(R.id.btn_listar_livros);
 
-        setOnClickForResult(btnCadastroParticipante, CadastroParticipante.class, 1);
-        setOnClickForResult(btnCadastroLivro, CadastroLivro.class, 2);
-        setOnClickForResult(btnCadastroReserva, CadastroReserva.class, 3);
-        btnListarLivros.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ListaLivros.class);
-                intent.putParcelableArrayListExtra("LIVROS", livros);
-                startActivity(intent);
-            }
-        });
 
-        participantes.add(new Participante("André Caetano Vidal", "andrecvidal@hotmail.com"));
-        participantes.add(new Participante("Igor Knop", null));
-        livros.add(new Livro("O Guia do Mochileiro das Galáxias", "Arqueiro", 2010));
+        setOnClick(btnCadastroParticipante, CadastroParticipante.class);
+        setOnClick(btnCadastroLivro, CadastroLivro.class);
+        setOnClick(btnCadastroReserva, CadastroReserva.class);
+        setOnClick(btnListarLivros, ListaLivros.class);
 
         final ListView listaParticipantes = (ListView) findViewById(R.id.list_participantes);
-        ArrayAdapter<Participante> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, participantes);
-        listaParticipantes.setAdapter(adapter);
-
         listaParticipantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -55,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listaParticipantes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*listaParticipantes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Participante participante = (Participante) listaParticipantes.getItemAtPosition(position);
@@ -63,38 +48,28 @@ public class MainActivity extends AppCompatActivity {
                 participantes.get(index).registraHora(new Date());
                 return true;
             }
-        });
+        })*/
     }
 
-    private void setOnClickForResult(final Button btn, final Class activity, final int requestCode){
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ParticipanteHelper participanteHelper = new ParticipanteHelper(getApplicationContext());
+        ArrayList<Participante> participantes = participanteHelper.buscarParticipantes();
+
+        ListView listaParticipantes = (ListView) findViewById(R.id.list_participantes);
+        ArrayAdapter<Participante> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, participantes);
+        listaParticipantes.setAdapter(adapter);
+    }
+
+    private void setOnClick(final Button btn, final Class activity){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), activity);
-                if(requestCode == 3){
-                    intent.putParcelableArrayListExtra("PARTICIPANTES", participantes);
-                    intent.putParcelableArrayListExtra("LIVROS", livros);
-                }
-                startActivityForResult(intent, requestCode);
+                startActivity(intent);
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if(requestCode == 1){
-                Participante novoParticipante = data.getParcelableExtra("PARTICIPANTE");
-                participantes.add(novoParticipante);
-            }
-            if(requestCode == 2){
-                Livro novoLivro = data.getParcelableExtra("LIVRO");
-                livros.add(novoLivro);
-            }
-            if(requestCode == 3){
-                livros = data.getParcelableArrayListExtra("LIVROS");
-            }
-        }
     }
 }

@@ -5,24 +5,25 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-class Livro implements Parcelable{
+public class Livro implements Parcelable{
+    private int id;
     private String titulo;
     private String editora;
     private Integer anoPublicacao;
     private ArrayList<Participante> participantes = new ArrayList<>();
 
-    Livro(Parcel in) {
+    public Livro(Parcel in) {
         titulo = in.readString();
         editora = in.readString();
         anoPublicacao = in.readInt();
         participantes = in.createTypedArrayList(Participante.CREATOR);
     }
 
-    Livro(String titulo, String editora, Integer anoPublicacao){
+    /*Livro(String titulo, String editora, Integer anoPublicacao){
         this.titulo = titulo;
         this.editora = editora;
         this.anoPublicacao = anoPublicacao;
-    }
+    }*/
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -49,36 +50,48 @@ class Livro implements Parcelable{
         }
     };
 
-    @Override
-    public String toString() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitulo() {
         return titulo;
     }
 
-    void setTitulo(String titulo) {
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
-    String getEditora() {
+    public String getEditora() {
         return editora;
     }
 
-    void setEditora(String editora) {
+    public void setEditora(String editora) {
         this.editora = editora;
     }
 
-    Integer getAnoPublicacao() {
+    public Integer getAnoPublicacao() {
         return anoPublicacao;
     }
 
-    void setAnoPublicacao(Integer anoPublicacao) {
+    public void setAnoPublicacao(Integer anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
     }
 
-    ArrayList<Participante> getParticipantes() {
+    /*public ArrayList<Participante> getParticipantes() {
         return participantes;
     }
 
-    void addParticipante(Participante participante) {
+    public void addParticipante(Participante participante) {
         participantes.add(participante);
+    }*/
+
+    @Override
+    public String toString() {
+        return getTitulo();
     }
 }

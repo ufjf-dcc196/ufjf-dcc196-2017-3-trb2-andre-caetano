@@ -1,6 +1,5 @@
 package com.example.andre.trb1;
 
-import android.content.Intent;
 import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.andre.trb1.dbhelper.LivroHelper;
 
 public class CadastroLivro extends AppCompatActivity {
 
@@ -38,11 +38,11 @@ public class CadastroLivro extends AppCompatActivity {
             livro.setAnoPublicacao(Integer.parseInt(etAnoPublicacao.getText().toString()));
         }
 
+        LivroHelper livroHelper = new LivroHelper(getApplicationContext());
+        livroHelper.inserirLivro(livro);
+
         Toast.makeText(getBaseContext(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-        intent.putExtra("LIVRO", livro);
-        setResult(RESULT_OK, intent);
         finish();
     }
 }

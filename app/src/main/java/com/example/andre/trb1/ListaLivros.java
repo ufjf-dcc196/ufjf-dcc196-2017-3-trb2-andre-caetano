@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.andre.trb1.dbhelper.LivroHelper;
+
 import java.util.ArrayList;
 
 public class ListaLivros extends AppCompatActivity {
@@ -17,11 +19,8 @@ public class ListaLivros extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_livros);
 
-        ArrayList<Livro> livros = new ArrayList<>();
-
-        if(getIntent().getParcelableArrayListExtra("LIVROS") != null){
-            livros = getIntent().getParcelableArrayListExtra("LIVROS");
-        }
+        LivroHelper livroHelper = new LivroHelper(getApplicationContext());
+        ArrayList<Livro> livros = livroHelper.buscarLivros();
 
         final ListView listaLivros = (ListView) findViewById(R.id.list_livros);
         ArrayAdapter<Livro> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, livros);

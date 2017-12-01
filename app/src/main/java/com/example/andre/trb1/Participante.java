@@ -6,24 +6,26 @@ import android.os.Parcelable;
 import java.text.DateFormat;
 import java.util.Date;
 
-class Participante implements Parcelable {
+public class Participante implements Parcelable {
+    private int id;
     private String nome;
     private String email;
     private String horaEntrada;
     private String horaSaida;
 
 
-    Participante(Parcel in) {
+    public Participante(Parcel in) {
+        id = in.readInt();
         nome = in.readString();
         email = in.readString();
         horaEntrada = in.readString();
         horaSaida = in.readString();
     }
 
-    Participante(String nome, String email){
+    /*Participante(String nome, String email){
         this.nome = nome;
         this.email = email;
-    }
+    }*/
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -50,29 +52,49 @@ class Participante implements Parcelable {
         }
     };
 
-    @Override
-    public String toString() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
         return nome;
     }
 
-    void setNome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    String getHoraEntrada() {
+    public String getHoraEntrada() {
         return horaEntrada;
     }
 
-    String getHoraSaida() {
+    public void setHoraEntrada(String horaEntrada) {
+        this.horaEntrada = horaEntrada;
+    }
+
+    public String getHoraSaida() {
         return horaSaida;
+    }
+
+    public void setHoraSaida(String horaSaida) {
+        this.horaSaida = horaSaida;
+    }
+
+    @Override
+    public String toString() {
+        return getNome();
     }
 
     void registraHora(Date date){

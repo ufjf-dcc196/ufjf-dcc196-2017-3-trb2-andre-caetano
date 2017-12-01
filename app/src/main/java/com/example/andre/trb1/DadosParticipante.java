@@ -23,7 +23,7 @@ public class DadosParticipante extends AppCompatActivity {
         TextView horarioEntrada = (TextView) findViewById(R.id.text_entrada_participante);
         TextView horarioSaida = (TextView) findViewById(R.id.text_saida_participante);
 
-        nome.setText(participante.toString());
+        nome.setText(participante.getNome());
         email.setText(participante.getEmail());
         horarioEntrada.setText(participante.getHoraEntrada());
         horarioSaida.setText(participante.getHoraSaida());
