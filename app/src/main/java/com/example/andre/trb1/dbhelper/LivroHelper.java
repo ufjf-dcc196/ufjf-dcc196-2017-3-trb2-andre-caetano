@@ -33,7 +33,7 @@ public class LivroHelper extends FeiraDBHelper {
         while(cursor.moveToNext()) {
             Livro livro = new Livro(Parcel.obtain());
 
-            livro.setId(cursor.getInt(cursor.getColumnIndex(FeiraContract.Livro._ID)));
+            livro.setId(cursor.getLong(cursor.getColumnIndex(FeiraContract.Livro._ID)));
             livro.setTitulo(cursor.getString(cursor.getColumnIndex(FeiraContract.Livro.COLUMN_NAME_TITULO)));
             livro.setEditora(cursor.getString(cursor.getColumnIndex(FeiraContract.Livro.COLUMN_NAME_EDITORA)));
             livro.setAnoPublicacao(cursor.getInt(cursor.getColumnIndex(FeiraContract.Livro.COLUMN_NAME_ANO_PUBLICACAO)));

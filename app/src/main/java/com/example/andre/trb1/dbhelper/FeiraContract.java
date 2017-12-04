@@ -58,10 +58,13 @@ final class FeiraContract {
 
         static final String SQL_CREATE_RESERVA= "CREATE TABLE "+
                 Reserva.TABLE_NAME+" ("+
-                Reserva._ID+TYPE_INT+
-                " PRIMARY KEY AUTOINCREMENT"+SEP+
+                Reserva._ID+TYPE_INT+ " PRIMARY KEY AUTOINCREMENT"+SEP+
                 Reserva.COLUMN_NAME_PARTICIPANTE+TYPE_INT+SEP+
-                Reserva.COLUMN_NAME_LIVRO+TYPE_INT+")";
+                Reserva.COLUMN_NAME_LIVRO+TYPE_INT+SEP+
+                "FOREIGN KEY ("+Reserva.COLUMN_NAME_PARTICIPANTE+") REFERENCES "
+                +Participante.TABLE_NAME+" ("+Participante._ID+")"+SEP+
+                "FOREIGN KEY ("+Reserva.COLUMN_NAME_LIVRO+") REFERENCES "
+                +Livro.TABLE_NAME+" ("+Livro._ID+"))";
 
         static final String SQL_DROP_RESERVA= "DROP TABLE IF EXISTS "+
                 Reserva.TABLE_NAME;

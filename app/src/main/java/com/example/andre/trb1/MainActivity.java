@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import com.example.andre.trb1.dbhelper.ParticipanteHelper;
+
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,8 +31,19 @@ public class MainActivity extends AppCompatActivity {
         setOnClick(btnCadastroLivro, CadastroLivro.class);
         setOnClick(btnCadastroReserva, CadastroReserva.class);
         setOnClick(btnListarLivros, ListaLivros.class);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ParticipanteHelper participanteHelper = new ParticipanteHelper(getApplicationContext());
+        final ArrayList<Participante> participantes = participanteHelper.buscarParticipantes();
 
         final ListView listaParticipantes = (ListView) findViewById(R.id.list_participantes);
+        ArrayAdapter<Participante> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, participantes);
+        listaParticipantes.setAdapter(adapter);
+
         listaParticipantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -40,27 +53,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        /*listaParticipantes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+        listaParticipantes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Participante participante = (Participante) listaParticipantes.getItemAtPosition(position);
                 int index = participantes.indexOf(participante);
-                participantes.get(index).registraHora(new Date());
+                registrarHora(participantes.get(index));
                 return true;
             }
-        })*/
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        ParticipanteHelper participanteHelper = new ParticipanteHelper(getApplicationContext());
-        ArrayList<Participante> participantes = participanteHelper.buscarParticipantes();
-
-        ListView listaParticipantes = (ListView) findViewById(R.id.list_participantes);
-        ArrayAdapter<Participante> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, participantes);
-        listaParticipantes.setAdapter(adapter);
+        });
     }
 
     private void setOnClick(final Button btn, final Class activity){
@@ -71,5 +73,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void registrarHora(Participante participante){
+        Date date = new Date();
+
+        if( participante.getHoraEntrada() == null && participante.getHoraSaida() == null) {
+            participante.setHoraEntrada(DateFormat.getTimeInstance().format(date));
+        }
+        else if(participante.getHoraSaida() == null){
+            participante.setHoraSaida(DateFormat.getTimeInstance().format(date));
+        }
+        else{
+            participante.setHoraEntrada(null);
+            participante.setHoraSaida(null);
+        }
+
+        ParticipanteHelper participanteHelper = new ParticipanteHelper(getApplicationContext());
+        participanteHelper.atualizarHora(participante, participante.getHoraEntrada(), participante.getHoraSaida());
     }
 }

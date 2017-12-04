@@ -26,15 +26,16 @@ public class ReservaHelper extends FeiraDBHelper {
 
     public ArrayList<Participante> buscarReservas(Livro livro) {
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT * FROM "+FeiraContract.Reserva.TABLE_NAME+
-                " WHERE "+FeiraContract.Reserva.COLUMN_NAME_LIVRO+"="+livro.getId();
+        // livro.getId().toString() dando erro ao apontar que livro.getId() == null
+        String sql = "SELECT "+FeiraContract.Reserva.COLUMN_NAME_PARTICIPANTE+" FROM "+FeiraContract.Reserva.TABLE_NAME+
+                " WHERE "+FeiraContract.Reserva.COLUMN_NAME_LIVRO+"="+livro.getId().toString();
         Cursor cursor = db.rawQuery(sql, null);
 
         ArrayList<Participante> participantes = new ArrayList<>();
         while(cursor.moveToNext()) {
             Participante participante = new Participante(Parcel.obtain());
 
-            participante.setId(cursor.getInt(cursor.getColumnIndex(FeiraContract.Participante._ID)));
+            participante.setId(cursor.getLong(cursor.getColumnIndex(FeiraContract.Participante._ID)));
             participante.setNome(cursor.getString(cursor.getColumnIndex(FeiraContract.Participante.COLUMN_NAME_NOME)));
             participante.setEmail(cursor.getString(cursor.getColumnIndex(FeiraContract.Participante.COLUMN_NAME_EMAIL)));
             participante.setHoraEntrada(cursor.getString(cursor.getColumnIndex(FeiraContract.Participante.COLUMN_NAME_HORA_ENTRADA)));

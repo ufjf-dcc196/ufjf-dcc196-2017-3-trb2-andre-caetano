@@ -34,7 +34,7 @@ public class ParticipanteHelper extends FeiraDBHelper {
         while (cursor.moveToNext()) {
             Participante participante = new Participante(Parcel.obtain());
 
-            participante.setId(cursor.getInt(cursor.getColumnIndex(FeiraContract.Participante._ID)));
+            participante.setId(cursor.getLong(cursor.getColumnIndex(FeiraContract.Participante._ID)));
             participante.setNome(cursor.getString(cursor.getColumnIndex(FeiraContract.Participante.COLUMN_NAME_NOME)));
             participante.setEmail(cursor.getString(cursor.getColumnIndex(FeiraContract.Participante.COLUMN_NAME_EMAIL)));
             participante.setHoraEntrada(cursor.getString(cursor.getColumnIndex(FeiraContract.Participante.COLUMN_NAME_HORA_ENTRADA)));
@@ -45,5 +45,16 @@ public class ParticipanteHelper extends FeiraDBHelper {
         cursor.close();
 
         return participantes;
+    }
+
+    public void atualizarHora(Participante participante, String horaEntrada, String horaSaida){
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues dados = new ContentValues();
+        dados.put(FeiraContract.Participante.COLUMN_NAME_HORA_ENTRADA, horaEntrada);
+        dados.put(FeiraContract.Participante.COLUMN_NAME_HORA_SAIDA, horaSaida);
+
+        String[] id = {participante.getId().toString()};
+        db.update(FeiraContract.Participante.TABLE_NAME, dados, FeiraContract.Participante._ID+"= ?", id);
     }
 }
