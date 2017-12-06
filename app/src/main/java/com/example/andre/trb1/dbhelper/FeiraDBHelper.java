@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class FeiraDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "feira.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     FeiraDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

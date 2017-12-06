@@ -1,6 +1,5 @@
 package com.example.andre.trb1;
 
-import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +25,7 @@ public class CadastroParticipante extends AppCompatActivity {
     }
 
     private void cadastrarParticipante(){
-        Participante participante = new Participante(Parcel.obtain());
+        Participante participante = new Participante();
 
         EditText etNome = (EditText) findViewById(R.id.et_nome);
         EditText etEmail = (EditText) findViewById(R.id.et_email);

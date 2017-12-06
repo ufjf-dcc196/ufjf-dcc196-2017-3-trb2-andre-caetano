@@ -1,6 +1,5 @@
 package com.example.andre.trb1;
 
-import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +25,7 @@ public class CadastroLivro extends AppCompatActivity {
     }
 
     private void cadastrarLivro() {
-        Livro livro = new Livro(Parcel.obtain());
+        Livro livro = new Livro();
 
         EditText etTitulo = (EditText) findViewById(R.id.et_titulo);
         EditText etEditora = (EditText) findViewById(R.id.et_editora);

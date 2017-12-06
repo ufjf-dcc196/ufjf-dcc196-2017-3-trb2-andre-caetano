@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Parcel;
 import com.example.andre.trb1.Participante;
 import java.util.ArrayList;
 
@@ -32,7 +31,7 @@ public class ParticipanteHelper extends FeiraDBHelper {
 
         ArrayList<Participante> participantes = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Participante participante = new Participante(Parcel.obtain());
+            Participante participante = new Participante();
 
             participante.setId(cursor.getLong(cursor.getColumnIndex(FeiraContract.Participante._ID)));
             participante.setNome(cursor.getString(cursor.getColumnIndex(FeiraContract.Participante.COLUMN_NAME_NOME)));

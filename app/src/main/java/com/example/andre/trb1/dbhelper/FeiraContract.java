@@ -56,15 +56,11 @@ final class FeiraContract {
         static final String COLUMN_NAME_PARTICIPANTE ="participante";
         static final String COLUMN_NAME_LIVRO ="livro";
 
-        static final String SQL_CREATE_RESERVA= "CREATE TABLE "+
-                Reserva.TABLE_NAME+" ("+
-                Reserva._ID+TYPE_INT+ " PRIMARY KEY AUTOINCREMENT"+SEP+
-                Reserva.COLUMN_NAME_PARTICIPANTE+TYPE_INT+SEP+
-                Reserva.COLUMN_NAME_LIVRO+TYPE_INT+SEP+
-                "FOREIGN KEY ("+Reserva.COLUMN_NAME_PARTICIPANTE+") REFERENCES "
-                +Participante.TABLE_NAME+" ("+Participante._ID+")"+SEP+
-                "FOREIGN KEY ("+Reserva.COLUMN_NAME_LIVRO+") REFERENCES "
-                +Livro.TABLE_NAME+" ("+Livro._ID+"))";
+        static final String SQL_CREATE_RESERVA = "CREATE TABLE "+
+               Reserva.TABLE_NAME+" ("+
+               Reserva._ID+TYPE_INT+" PRIMARY KEY AUTOINCREMENT"+SEP+
+               Reserva.COLUMN_NAME_PARTICIPANTE+TYPE_INT+" REFERENCES "+Participante.TABLE_NAME+" ON DELETE CASCADE"+SEP+
+               Reserva.COLUMN_NAME_LIVRO+TYPE_INT+" REFERENCES "+Livro.TABLE_NAME+" ON DELETE CASCADE)";
 
         static final String SQL_DROP_RESERVA= "DROP TABLE IF EXISTS "+
                 Reserva.TABLE_NAME;

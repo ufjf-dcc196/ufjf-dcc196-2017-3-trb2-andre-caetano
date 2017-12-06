@@ -1,11 +1,11 @@
 package com.example.andre.trb1;
 
-import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.example.andre.trb1.dbhelper.ReservaHelper;
 import java.util.ArrayList;
 
@@ -16,10 +16,10 @@ public class DadosLivro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dados_livro);
 
-        Livro livro = new Livro(Parcel.obtain());
+        Livro livro = new Livro();
 
-        if(getIntent().getParcelableExtra("LIVRO") != null){
-            livro = getIntent().getParcelableExtra("LIVRO");
+        if(getIntent().getSerializableExtra("LIVRO") != null){
+            livro = (Livro) getIntent().getSerializableExtra("LIVRO");
         }
 
         TextView titulo = (TextView) findViewById(R.id.text_titulo_livro);

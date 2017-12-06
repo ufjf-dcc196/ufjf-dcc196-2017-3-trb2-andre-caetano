@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Parcel;
 import com.example.andre.trb1.Livro;
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class LivroHelper extends FeiraDBHelper {
 
         ArrayList<Livro> livros = new ArrayList<>();
         while(cursor.moveToNext()) {
-            Livro livro = new Livro(Parcel.obtain());
+            Livro livro = new Livro();
 
             livro.setId(cursor.getLong(cursor.getColumnIndex(FeiraContract.Livro._ID)));
             livro.setTitulo(cursor.getString(cursor.getColumnIndex(FeiraContract.Livro.COLUMN_NAME_TITULO)));

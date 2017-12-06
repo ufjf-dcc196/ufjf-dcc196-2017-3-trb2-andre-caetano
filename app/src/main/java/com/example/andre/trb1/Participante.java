@@ -1,47 +1,16 @@
 package com.example.andre.trb1;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
 
-public class Participante implements Parcelable {
+public class Participante implements Serializable {
     private Long id;
     private String nome;
     private String email;
     private String horaEntrada;
     private String horaSaida;
 
-
-    public Participante(Parcel in) {
-        nome = in.readString();
-        email = in.readString();
-        horaEntrada = in.readString();
-        horaSaida = in.readString();
+    public Participante() {
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nome);
-        dest.writeString(email);
-        dest.writeString(horaEntrada);
-        dest.writeString(horaSaida);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Participante> CREATOR = new Creator<Participante>() {
-        @Override
-        public Participante createFromParcel(Parcel in) {
-            return new Participante(in);
-        }
-
-        @Override
-        public Participante[] newArray(int size) {
-            return new Participante[size];
-        }
-    };
 
     public Long getId() {
         return id;

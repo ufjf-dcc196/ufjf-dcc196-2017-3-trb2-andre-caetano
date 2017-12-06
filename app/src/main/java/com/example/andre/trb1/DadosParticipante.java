@@ -1,6 +1,5 @@
 package com.example.andre.trb1;
 
-import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -12,10 +11,10 @@ public class DadosParticipante extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dados_participante);
 
-        Participante participante = new Participante(Parcel.obtain());
+        Participante participante = new Participante();
 
-        if(getIntent().getParcelableExtra("PARTICIPANTE") != null) {
-            participante = getIntent().getParcelableExtra("PARTICIPANTE");
+        if(getIntent().getSerializableExtra("PARTICIPANTE")!= null) {
+            participante = (Participante) getIntent().getSerializableExtra("PARTICIPANTE");
         }
 
         TextView nome = (TextView) findViewById(R.id.text_nome_participante);
